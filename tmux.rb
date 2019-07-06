@@ -10,7 +10,6 @@ class Tmux < Formula
     sha256 "5c7148b6beb43995a0f53504f9a3f0500420e5ad11e17f34ce60401f42b833df" => :high_sierra
     sha256 "b59dc70fea0e69398d757e5212d5d21642ee552518af5870f789312465c88500" => :sierra
   end
-
   head do
     url "https://github.com/tmux/tmux.git"
 
