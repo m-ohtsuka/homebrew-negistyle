@@ -21,7 +21,6 @@ class Tmux < Formula
   depends_on "pkg-config" => :build
   depends_on "libevent"
   depends_on "ncurses"
-  depends_on "utf8proc"
 
   resource "completion" do
     url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/homebrew_1.0.0/completions/tmux"
@@ -32,7 +31,6 @@ class Tmux < Formula
     system "sh", "autogen.sh" if build.head?
 
     args = %W[
-#      --enable-utf8proc
       --disable-dependency-tracking
       --prefix=#{prefix}
       --sysconfdir=#{etc}
