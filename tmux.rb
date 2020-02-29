@@ -1,8 +1,9 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/2.9a/tmux-2.9a.tar.gz"
-  sha256 "839d167a4517a6bffa6b6074e89a9a8630547b2dea2086f1fad15af12ab23b25"
+  url "https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a.tar.gz"
+  sha256 "4ad1df28b4afa969e59c08061b45082fdc49ff512f30fc8e43217d7b0e5f8db9"
+  revision 1
 
   head do
     url "https://github.com/tmux/tmux.git"
@@ -13,13 +14,14 @@ class Tmux < Formula
   end
 
   patch do
-    url "https://github.com/z80oolong/tmux-eaw-fix/raw/master/tmux-2.9a-fix.diff"
-    sha256 "5225429d53b01119dfba3326d4f420ab3851d8da8b00e44dd7dbb4d5f4713ed4"
+    url "https://github.com/z80oolong/tmux-eaw-fix/raw/master/tmux-3.0a-fix.diff"
+    sha256 "d223ddc4d7621416ae0f8ac874155bc963a16365ada9598eff74129141ad7948"
   end
 
   depends_on "pkg-config" => :build
   depends_on "libevent"
   depends_on "ncurses"
+  depends_on "utf8proc"
 
   resource "completion" do
     url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/homebrew_1.0.0/completions/tmux"
@@ -30,7 +32,8 @@ class Tmux < Formula
     system "sh", "autogen.sh" if build.head?
 
     args = %W[
-      --disable-Dependency-tracking
+      --enable-utf8proc
+      --disable-dependency-tracking
       --prefix=#{prefix}
       --sysconfdir=#{etc}
     ]
