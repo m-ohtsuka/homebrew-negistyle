@@ -32,7 +32,7 @@ class Tmux < Formula
     system "sh", "autogen.sh" if build.head?
 
     args = %W[
-      --enable-utf8proc
+#      --enable-utf8proc
       --disable-dependency-tracking
       --prefix=#{prefix}
       --sysconfdir=#{etc}
