@@ -1,8 +1,8 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.1b/tmux-3.1b.tar.gz"
-  sha256 "d93f351d50af05a75fe6681085670c786d9504a5da2608e481c47cf5e1486db9"
+  url "https://github.com/tmux/tmux/releases/download/3.1c/tmux-3.1c.tar.gz"
+  sha256 "918f7220447bef33a1902d4faff05317afd9db4ae1c9971bef5c787ac6c88386"
 
   head do
     url "https://github.com/tmux/tmux.git"
@@ -13,8 +13,8 @@ class Tmux < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.1b-fix.diff"
-    sha256 "f9efcbdcd7048b549141ca06be435dbc142d99fefc06464995aea650f778d480"
+    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.1c-fix.diff"
+    sha256 "2c2377b223c0841a3195effe83663f3be41d20b37de2b61eb8051f308125cd8d"
   end
 
   depends_on "pkg-config" => :build
