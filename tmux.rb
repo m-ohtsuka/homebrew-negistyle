@@ -1,10 +1,9 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.1c/tmux-3.1c.tar.gz"
-  sha256 "918f7220447bef33a1902d4faff05317afd9db4ae1c9971bef5c787ac6c88386"
+  url "https://github.com/tmux/tmux/releases/download/3.2/tmux-3.2.tar.gz"
+  sha256 "664d345338c11cbe429d7ff939b92a5191e231a7c1ef42f381cebacb1e08a399"
   license "ISC"
-  revision 1
 
   livecheck do
     url :stable
@@ -18,6 +17,8 @@ class Tmux < Formula
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
+
+    uses_from_macos "bison" => :build
   end
 
   depends_on "pkg-config" => :build
@@ -25,10 +26,10 @@ class Tmux < Formula
   depends_on "ncurses"
 
   patch do
-    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.1c-fix.diff"
-    sha256 "2c2377b223c0841a3195effe83663f3be41d20b37de2b61eb8051f308125cd8d"
+    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.2-rc4-fix.diff"
+    sha256 "39fd717d4c627e3ac23fe8f5dfb44db3485d1cae8d9f321b75793fb583ca7dec"
   end
-  
+
   # Old versions of macOS libc disagree with utf8proc character widths.
   # https://github.com/tmux/tmux/issues/2223
   depends_on "utf8proc" if MacOS.version >= :high_sierra
