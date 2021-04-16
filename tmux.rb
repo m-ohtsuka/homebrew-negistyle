@@ -26,8 +26,8 @@ class Tmux < Formula
   depends_on "ncurses"
 
   patch do
-    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.2-rc4-fix.diff"
-    sha256 "39fd717d4c627e3ac23fe8f5dfb44db3485d1cae8d9f321b75793fb583ca7dec"
+    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.2-fix.diff"
+    sha256 "4c5d9457bae9e4ef3aadc7cb902be944caeeab79573c09b34f414137c5d591ab"
   end
 
   # Old versions of macOS libc disagree with utf8proc character widths.
