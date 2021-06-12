@@ -1,8 +1,8 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.2/tmux-3.2.tar.gz"
-  sha256 "664d345338c11cbe429d7ff939b92a5191e231a7c1ef42f381cebacb1e08a399"
+  url "https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz"
+  sha256 "551553a4f82beaa8dadc9256800bcc284d7c000081e47aa6ecbb6ff36eacd05f"
   license "ISC"
 
   livecheck do
@@ -26,8 +26,8 @@ class Tmux < Formula
   depends_on "ncurses"
 
   patch do
-    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.2-fix.diff"
-    sha256 "4c5d9457bae9e4ef3aadc7cb902be944caeeab79573c09b34f414137c5d591ab"
+    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.2a-fix.diff"
+    sha256 "7b61b765fafadbfffd9a5c2001bd29a246199cc8818531c867bb44faed595b87"
   end
 
   # Old versions of macOS libc disagree with utf8proc character widths.
