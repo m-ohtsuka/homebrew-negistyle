@@ -1,8 +1,8 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz"
-  sha256 "551553a4f82beaa8dadc9256800bcc284d7c000081e47aa6ecbb6ff36eacd05f"
+  url "https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz"
+  sha256 "e4fd347843bd0772c4f48d6dde625b0b109b7a380ff15db21e97c11a4dcdf93f"
   license "ISC"
 
   livecheck do
@@ -25,14 +25,14 @@ class Tmux < Formula
   depends_on "libevent"
   depends_on "ncurses"
 
-  patch do
-    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.2a-fix.diff"
-    sha256 "7b61b765fafadbfffd9a5c2001bd29a246199cc8818531c867bb44faed595b87"
-  end
-
   # Old versions of macOS libc disagree with utf8proc character widths.
   # https://github.com/tmux/tmux/issues/2223
   depends_on "utf8proc" if MacOS.version >= :high_sierra
+
+  patch do
+    url "https://raw.githubusercontent.com/z80oolong/tmux-eaw-fix/master/tmux-3.3a-fix.diff"
+    sha256 "69bd95a15b8526b17e41ef0c8dd63295571a2c6607859809ca8c496beb3ccd7e"
+  end
 
   resource "completion" do
     url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/f5d53239f7658f8e8fbaf02535cc369009c436d6/completions/tmux"
@@ -48,6 +48,11 @@ class Tmux < Formula
       --sysconfdir=#{etc}
     ]
 
+    # tmux finds the `tmux-256color` terminfo provided by our ncurses
+    # and uses that as the default `TERM`, but this causes issues for
+    # tools that link with the very old ncurses provided by macOS.
+    # https://github.com/Homebrew/homebrew-core/issues/102748
+    args << "--with-TERM=screen-256color" if OS.mac?
     args << "--enable-utf8proc" if MacOS.version >= :high_sierra
 
     ENV.append "LDFLAGS", "-lresolv"
@@ -67,6 +72,16 @@ class Tmux < Formula
   end
 
   test do
-    system "#{bin}/tmux", "-V"
+    system bin/"tmux", "-V"
+
+    require "pty"
+
+    socket = testpath/tap.user
+    PTY.spawn bin/"tmux", "-S", socket, "-f", "/dev/null"
+    sleep 10
+
+    assert_predicate socket, :exist?
+    assert_predicate socket, :socket?
+    assert_equal "no server running on #{socket}", shell_output("#{bin}/tmux -S#{socket} list-sessions 2>&1", 1).chomp
   end
 end
