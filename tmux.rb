@@ -2,7 +2,7 @@ class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
   license "ISC"
-  revision 1
+  revision 2
 
   stable do
     # Remove `stable` block in next release.
@@ -24,8 +24,8 @@ class Tmux < Formula
 
   livecheck do
     url :stable
-    strategy :github_latest
     regex(%r{href=.*?/tag/v?(\d+(?:\.\d+)+[a-z]?)["' >]}i)
+    strategy :github_latest
   end
 
   head do
@@ -43,8 +43,8 @@ class Tmux < Formula
   depends_on "ncurses"
 
   # Old versions of macOS libc disagree with utf8proc character widths.
-  # https://github.com/tmux/tmux/issues/2223
-  on_high_sierra :or_newer do
+  # tmux/tmux#2223
+  on_system :linux, macos: :sierra_or_newer do
     depends_on "utf8proc"
   end
 
@@ -67,7 +67,7 @@ class Tmux < Formula
     # tools that link with the very old ncurses provided by macOS.
     # https://github.com/Homebrew/homebrew-core/issues/102748
     args << "--with-TERM=screen-256color" if OS.mac?
-    args << "--enable-utf8proc" if MacOS.version >= :high_sierra
+    args << "--enable-utf8proc" if MacOS.version >= :high_sierra || OS.linux?
 
     ENV.append "LDFLAGS", "-lresolv"
     system "./configure", *args
